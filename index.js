@@ -69,3 +69,6 @@ app.post("/signup",async(request,response)=>{
 
 
 })
+app.get('/',(req,res)=>{
+    res.send('Welcome to Our Website');
+})
