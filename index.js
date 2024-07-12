@@ -33,8 +33,12 @@ initializeDBAndServer();
 //Login Api 
 
 app.post("/login/",async(request,response)=>{
-    const {emailId,password}= request.body;
-    const selectUserQuery=`SELECT * FROM User WHERE emailId='${emailId}' AND password='${password}'`;
+   
+    const values=[
+        request.body.emailId,
+        request.body.password
+    ]
+    const selectUserQuery=`SELECT * FROM User WHERE emailId='${values.emailId}' AND password='${values.password}'`;
     const dbUser= await db.get(selectUserQuery);
     if (dbUser === undefined){
         response.status(400);
@@ -48,15 +52,20 @@ app.post("/login/",async(request,response)=>{
 // Register Api 
 
 app.post("/signup",async(request,response)=>{
-    const {emailId,username,password}= request.body;
+   
+    const values=[
+        request.body.emailId,
+        request.body.username,
+        request.body.assword
+    ]
 
-    const selectUserQuery= `SELECT * FROM User WHERE emailId='${emailId}'`;
+    const selectUserQuery= `SELECT * FROM User WHERE emailId='${values.emailId}'`;
 
     const dbUser = await db.get(selectUserQuery);
     if (dbUser === undefined){
 
         const createUserQuery=`INSERT INTO User(emailId,username,password)
-                                            VALUES('${emailId}','${username}','${password}');
+                                            VALUES('${values.emailId}','${values.username}','${values.password}');
         
         `;
 
