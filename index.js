@@ -72,3 +72,9 @@ app.post("/signup",async(request,response)=>{
 app.get('/',(req,res)=>{
     res.send('Welcome to Our Website');
 })
+
+app.get('/userlist',async(req,res)=>{
+    const selectUserQuery=`SELECT * FROM User`
+    const dbUsers= await db.all(selectUserQuery);
+    res.send(dbUsers);
+})
